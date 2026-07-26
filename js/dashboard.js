@@ -77,47 +77,95 @@ document.getElementById(
 `${completedMeals} / ${totalMeals}`;
 
 
-
 // ======================
 // Shopping Progress
-// (暂时保持 localStorage)
 // ======================
+
+
+let shoppingItems = [];
+
+
+
+// 根据当前 Meal Plan 找食材
+
+mealPlan.forEach(item=>{
+
+
+let recipe = recipes.find(
+
+r=>r.id == item.recipe_id
+
+);
+
+
+
+if(recipe && recipe.ingredients){
+
+
+for(let category in recipe.ingredients){
+
+
+let items =
+
+recipe.ingredients[category].items
+
+?
+
+recipe.ingredients[category].items
+
+:
+
+recipe.ingredients[category];
+
+
+
+items.forEach(ingredient=>{
+
+
+if(!shoppingItems.includes(ingredient)){
+
+
+shoppingItems.push(ingredient);
+
+
+}
+
+
+});
+
+
+}
+
+
+
+}
+
+
+
+});
+
 
 
 let shoppingStatus =
 
 JSON.parse(
+
 localStorage.getItem("shoppingStatus")
+
 )
 
 || {};
 
-if(Object.keys(shoppingStatus).length === 0){
-
-document.getElementById(
-"shoppingProgress"
-).innerHTML = "0 / 0";
-
-return;
-
-}
 
 
 let shoppingDone = 0;
 
 
-let shoppingTotal =
 
-Object.keys(shoppingStatus).length;
-
+shoppingItems.forEach(item=>{
 
 
-Object.values(shoppingStatus)
-
-.forEach(item=>{
-
-
-if(item){
+if(shoppingStatus[item]){
 
 shoppingDone++;
 
@@ -132,8 +180,8 @@ document.getElementById(
 "shoppingProgress"
 ).innerHTML =
 
-`${shoppingDone} / ${shoppingTotal}`;
 
+`${shoppingDone} / ${shoppingItems.length}`;
 
 
 // ======================
