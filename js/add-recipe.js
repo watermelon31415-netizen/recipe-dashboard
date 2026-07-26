@@ -381,9 +381,6 @@ updateError
 );
 
 
-error = updateError;
-
-
 error =
 result.error;
 
