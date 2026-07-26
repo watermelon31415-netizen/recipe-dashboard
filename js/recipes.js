@@ -73,6 +73,13 @@ return;
 }
 
 
+await supabaseClient
+.from("meal_plans")
+.delete()
+.eq("recipe_id",id);
+
+
+
 const {error}=await supabaseClient
 .from("recipes")
 .delete()
