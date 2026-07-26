@@ -252,8 +252,25 @@ async function loadMealPlan(){
 
        if(saved){
 
+
+let exists = Array.from(select.options)
+.some(option =>
+option.value == saved.recipe_id
+);
+
+
+if(exists){
+
 select.value =
 String(saved.recipe_id);
+
+}
+else{
+
+select.value = "";
+
+}
+
 
 }
 else{
