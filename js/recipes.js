@@ -93,6 +93,13 @@ planError
 );
 
 }
+else{
+
+console.log(
+"Meal plan deleted successfully"
+);
+
+}
 
 
 
