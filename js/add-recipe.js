@@ -429,10 +429,8 @@ recipeId
 
 );
 
-
-
-location.href =
-"recipes.html";
+// location.href =
+// "recipes.html";
 
 
 });
