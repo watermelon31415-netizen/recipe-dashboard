@@ -5,13 +5,14 @@ document
 async ()=>{
 
 
-// ① 先上传图片
+// 上传图片
 
 let imageUrl = "";
 
 
 const file =
 document.getElementById("image").files[0];
+
 
 
 if(file){
@@ -65,7 +66,7 @@ urlData.publicUrl;
 
 
 
-// ② 再创建 recipe 对象
+// 创建 recipe
 
 let newRecipe = {
 
@@ -155,7 +156,7 @@ console.log(newRecipe);
 
 
 
-const {data,error}=await supabaseClient
+const {error}=await supabaseClient
 .from("recipes")
 .insert([newRecipe]);
 
