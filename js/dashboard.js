@@ -92,6 +92,15 @@ localStorage.getItem("shoppingStatus")
 
 || {};
 
+if(Object.keys(shoppingStatus).length === 0){
+
+document.getElementById(
+"shoppingProgress"
+).innerHTML = "0 / 0";
+
+return;
+
+}
 
 
 let shoppingDone = 0;
