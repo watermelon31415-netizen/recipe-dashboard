@@ -218,7 +218,61 @@ return;
 
 
 
-    for(let category in ingredients){
+    const categoryOrder = [
+
+"🥩 Meat",
+"🥦 Vegetables",
+"🍚 Main",
+"🧂 Seasoning"
+
+];
+
+
+categoryOrder.forEach(category=>{
+
+
+if(!ingredients[category]){
+
+return;
+
+}
+
+
+html += `
+
+<h3>
+${category}
+</h3>
+
+`;
+
+
+ingredients[category]
+.forEach(item=>{
+
+
+html += `
+
+<label>
+
+<input
+type="checkbox"
+class="shopping-check"
+data-item="${item}"
+>
+
+${item}
+
+</label>
+
+<br>
+
+`;
+
+});
+
+
+});
 
 
 
