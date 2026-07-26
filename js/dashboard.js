@@ -5,41 +5,65 @@ await loadRecipes();
 
 
 
-let mealPlan =
-JSON.parse(
-localStorage.getItem("mealPlan")
-)
-|| {};
+// ======================
+// Load Meal Plan from Supabase
+// ======================
+
+
+const {data:mealPlan,error}=
+
+await supabaseClient
+.from("meal_plans")
+.select("*");
+
+
+
+if(error){
+
+console.log(
+"Load meal plan error:",
+error
+);
+
+return;
+
+}
+
+
+
+console.log(
+"Meal Plan:",
+mealPlan
+);
+
+
+
+
+// ======================
+// Meal Progress
+// ======================
 
 
 let totalMeals = 0;
-
 
 let completedMeals = 0;
 
 
 
-for(let day in mealPlan){
-
-
-for(let meal in mealPlan[day]){
+mealPlan.forEach(item=>{
 
 
 totalMeals++;
 
 
-if(
-mealPlan[day][meal]
-){
+if(item.recipe_id){
 
 completedMeals++;
 
 }
 
 
-}
-
-}
+});
 
 
 
@@ -49,10 +73,20 @@ document.getElementById(
 
 `${completedMeals} / ${totalMeals}`;
 
+
+
+// ======================
+// Shopping Progress
+// (暂时保持 localStorage)
+// ======================
+
+
 let shoppingStatus =
+
 JSON.parse(
 localStorage.getItem("shoppingStatus")
 )
+
 || {};
 
 
@@ -61,11 +95,13 @@ let shoppingDone = 0;
 
 
 let shoppingTotal =
+
 Object.keys(shoppingStatus).length;
 
 
 
 Object.values(shoppingStatus)
+
 .forEach(item=>{
 
 
@@ -86,8 +122,17 @@ document.getElementById(
 
 `${shoppingDone} / ${shoppingTotal}`;
 
+
+
+// ======================
+// Today's Meal
+// ======================
+
+
 const today =
+
 new Date()
+
 .toLocaleDateString(
 "en-US",
 {
@@ -97,75 +142,108 @@ weekday:"long"
 
 
 
-let todayHTML =
-"";
+let todayHTML = "";
 
 
 
-if(mealPlan[today]){
+mealPlan.forEach(item=>{
 
 
-for(let meal in mealPlan[today]){
+if(item.day === today){
+
 
 
 let recipe =
+
 recipes.find(
-r=>r.id == mealPlan[today][meal]
+
+r=>r.id == item.recipe_id
+
 );
 
 
 
 if(recipe){
 
+
 todayHTML += `
+
 
 <p>
 
-${meal}:
+${item.meal}:
+
+<a href="recipe-detail.html?id=${recipe.id}">
+
 ${recipe.name}
 
+</a>
+
 </p>
+
 
 `;
 
 }
 
-}
 
 }
+
+
+
+});
 
 
 
 document.getElementById(
 "todayMeal"
 ).innerHTML =
+
 todayHTML ||
+
 "No meal planned";
 
 
+
+
+// ======================
+// Random Recipe Button
+// ======================
+
+
 document
+
 .getElementById("randomBtn")
+
 .addEventListener(
+
 "click",
+
 ()=>{
 
 
 let randomIndex =
+
 Math.floor(
+
 Math.random()*recipes.length
+
 );
 
 
 
 let recipe =
+
 recipes[randomIndex];
 
 
 
 document.getElementById(
 "randomResult"
-).innerHTML = `
+).innerHTML =
 
+
+`
 
 <h3>
 
@@ -198,26 +276,43 @@ ${recipe.name}
 `;
 
 
-});
+}
+
+);
+
+
+
+
+// ======================
+// Random Filter
+// ======================
+
 
 function randomRecipe(){
 
 
 let meal =
+
 document.getElementById(
 "randomMeal"
 ).value;
 
 
+
 let time =
+
 Number(
+
 document.getElementById(
 "randomTime"
 ).value
+
 );
 
 
+
 let tag =
+
 document.getElementById(
 "randomTag"
 ).value
@@ -226,10 +321,11 @@ document.getElementById(
 
 
 let filtered =
+
 recipes.filter(recipe=>{
 
 
-let pass = true;
+let pass=true;
 
 
 
@@ -288,10 +384,15 @@ return;
 
 
 let random =
+
 filtered[
+
 Math.floor(
+
 Math.random()*filtered.length
+
 )
+
 ];
 
 
@@ -299,6 +400,7 @@ Math.random()*filtered.length
 document.getElementById(
 "randomRecipe"
 ).innerHTML =
+
 
 `
 
@@ -332,6 +434,7 @@ width="200"
 View Recipe
 </a>
 
+
 `;
 
 }
@@ -339,16 +442,24 @@ View Recipe
 
 
 document
+
 .getElementById("randomButton")
+
 .addEventListener(
+
 "click",
+
 randomRecipe
+
 );
+
 
 
 randomRecipe();
 
+
 }
- 
+
+
 
 initDashboard();
