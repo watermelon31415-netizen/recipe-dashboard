@@ -134,9 +134,10 @@ select.value;
 
 
 
-localStorage.setItem(
-"mealPlan",
-JSON.stringify(plan)
+await saveMealPlan(
+day,
+meal,
+select.value
 );
 
 
@@ -148,11 +149,64 @@ JSON.stringify(plan)
 
 // 读取保存的 Meal Plan
 
-let savedPlan =
-JSON.parse(
-localStorage.getItem("mealPlan")
-)
-|| {};
+async function loadMealPlan(){
+
+
+const {data,error}=
+
+await supabaseClient
+.from("meal_plans")
+.select("*");
+
+
+
+if(error){
+
+console.log(error);
+
+return;
+
+}
+
+
+
+selects.forEach(select=>{
+
+
+let day =
+select.dataset.day;
+
+
+let meal =
+select.dataset.meal;
+
+
+
+let saved =
+data.find(item=>
+
+item.day==day &&
+item.meal==meal
+
+);
+
+
+
+if(saved){
+
+select.value =
+saved.recipe_id;
+
+}
+
+
+});
+
+
+}
+
+
+loadMealPlan();
 
 
 selects.forEach(select=>{
@@ -179,3 +233,51 @@ savedPlan[day][meal];
 
 
 });
+
+async function saveMealPlan(
+day,
+meal,
+recipe_id
+){
+
+
+const {error}=
+
+await supabaseClient
+.from("meal_plans")
+.upsert([
+
+{
+
+day:day,
+
+meal:meal,
+
+recipe_id:Number(recipe_id)
+
+}
+
+],
+
+{
+
+onConflict:
+"day,meal"
+
+}
+
+);
+
+
+
+if(error){
+
+console.log(
+"Save meal plan error:",
+error
+);
+
+}
+
+
+}
