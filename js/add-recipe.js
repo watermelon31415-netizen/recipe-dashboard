@@ -8,9 +8,6 @@ async ()=>{
 let newRecipe = {
 
 
-
-
-
 name:
 document.getElementById("recipeName").value,
 
@@ -23,10 +20,11 @@ tags:
 document.getElementById("tags")
 .value
 .split(",")
-.map(tag=>tag.trim()),
+.map(tag=>tag.trim())
+.filter(tag=>tag),
 
 
-image:
+image_url:
 document.getElementById("image").value,
 
 
@@ -40,19 +38,7 @@ note:
 document.getElementById("note").value,
 
 
-difficulty:1,
-
-
-cost:"$",
-
-
-taste:[],
-
-
-source:{
-youtube:"",
-xiaohongshu:""
-},
+link:"",
 
 
 ingredients:{
@@ -99,6 +85,7 @@ document
 .split(",")
 .map(i=>i.trim())
 .filter(i=>i)
+
 
 }
 
