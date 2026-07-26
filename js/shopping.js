@@ -125,10 +125,18 @@ localStorage.removeItem(
 );
 
 
+const progress =
 document.getElementById(
 "shoppingProgress"
-).innerHTML =
+);
+
+
+if(progress){
+
+progress.innerHTML =
 "0 / 0";
+
+}
 
 
 return;
