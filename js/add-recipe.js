@@ -112,10 +112,6 @@ return;
 
 }
 
-
-alert("Recipe Saved!");
-
-
 alert(
 "Recipe Saved!"
 );
