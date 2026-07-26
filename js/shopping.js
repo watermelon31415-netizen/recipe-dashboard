@@ -502,8 +502,6 @@ ${item}
 
 
 
-}
-
 
 
 initShopping();
