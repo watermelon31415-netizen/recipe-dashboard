@@ -356,6 +356,13 @@ let error;
 if(recipeId){
 
 
+console.log(
+"Updating id:",
+Number(recipeId)
+);
+
+
+
 const {data:updateData,error:updateError}=
 
 await supabaseClient
@@ -379,10 +386,6 @@ console.log(
 "Update error:",
 updateError
 );
-
-
-error =
-result.error;
 
 
 }
