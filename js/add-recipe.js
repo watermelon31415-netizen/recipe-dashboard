@@ -1,3 +1,16 @@
+const recipeId =
+new URLSearchParams(
+window.location.search
+).get("id");
+
+
+if(recipeId){
+
+loadRecipe();
+
+}
+
+
 document
 .getElementById("saveRecipe")
 .addEventListener(
