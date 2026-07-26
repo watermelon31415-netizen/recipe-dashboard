@@ -356,7 +356,7 @@ let error;
 if(recipeId){
 
 
-const result =
+const {data:updateData,error:updateError}=
 
 await supabaseClient
 .from("recipes")
@@ -364,7 +364,24 @@ await supabaseClient
 .eq(
 "id",
 Number(recipeId)
+)
+.select();
+
+
+
+console.log(
+"Update returned:",
+updateData
 );
+
+
+console.log(
+"Update error:",
+updateError
+);
+
+
+error = updateError;
 
 
 error =
