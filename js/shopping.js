@@ -3,33 +3,66 @@ document.getElementById("shoppingList");
 
 
 
-let mealPlan =
-JSON.parse(
-localStorage.getItem("mealPlan")
-)
-|| {};
+async function initShopping(){
+
+
+    await loadRecipes();
 
 
 
-let selectedRecipes = [];
+    // ======================
+    // 从 Supabase 获取 Meal Plan
+    // ======================
 
 
-// 找出本周选择的菜
+    const {data:mealPlan,error}=
 
-for(let day in mealPlan){
+    await supabaseClient
+    .from("meal_plans")
+    .select("*");
 
 
-    for(let meal in mealPlan[day]){
+
+    if(error){
+
+        console.log(
+            "Load meal plan error:",
+            error
+        );
+
+        return;
+
+    }
 
 
-        let recipeId =
-        mealPlan[day][meal];
+
+    console.log(
+        "Meal Plan:",
+        mealPlan
+    );
+
+
+
+    let selectedRecipes = [];
+
+
+
+    // 找出本周安排的菜
+
+
+    mealPlan.forEach(item=>{
 
 
         let recipe =
+
         recipes.find(
-        item => item.id == recipeId
+
+            recipe =>
+
+            recipe.id == item.recipe_id
+
         );
+
 
 
         if(recipe){
@@ -38,228 +71,324 @@ for(let day in mealPlan){
 
         }
 
+
+    });
+
+
+
+    console.log(
+        "Selected Recipes:",
+        selectedRecipes
+    );
+
+
+
+    // ======================
+    // 合并食材
+    // ======================
+
+
+    let ingredients = {};
+
+
+
+    selectedRecipes.forEach(recipe=>{
+
+
+        for(let category in recipe.ingredients){
+
+
+
+            if(!ingredients[category]){
+
+                ingredients[category]=[];
+
+            }
+
+
+
+            let items =
+
+            recipe.ingredients[category].items
+
+            ?
+
+            recipe.ingredients[category].items
+
+            :
+
+            recipe.ingredients[category];
+
+
+
+            items.forEach(item=>{
+
+
+                if(
+                    !ingredients[category]
+                    .includes(item)
+                ){
+
+
+                    ingredients[category]
+                    .push(item);
+
+
+                }
+
+
+            });
+
+
+
+        }
+
+
+
+    });
+
+
+
+    console.log(
+        "Ingredients:",
+        ingredients
+    );
+
+
+
+    // ======================
+    // 显示购物清单
+    // ======================
+
+
+    let html = "";
+
+
+
+    for(let category in ingredients){
+
+
+
+        html += `
+
+
+        <h3>
+        ${category}
+        </h3>
+
+
+        `;
+
+
+
+        ingredients[category]
+        .forEach(item=>{
+
+
+            html += `
+
+
+            <label>
+
+
+            <input
+            type="checkbox"
+            class="shopping-check"
+            data-item="${item}"
+            >
+
+
+            ${item}
+
+
+            </label>
+
+
+            <br>
+
+
+            `;
+
+
+        });
+
+
+
     }
 
-}
 
 
+    shoppingList.innerHTML = html;
 
-console.log(selectedRecipes);
 
-let ingredients = {};
 
+    const shoppingChecks =
 
+    document.querySelectorAll(
+        ".shopping-check"
+    );
 
-selectedRecipes.forEach(recipe=>{
 
 
-for(let category in recipe.ingredients){
+    // ======================
+    // 保存购买状态
+    // ======================
 
 
-if(!ingredients[category]){
 
-ingredients[category]=[];
+    function saveShoppingStatus(){
 
-}
 
+        let status = {};
 
-let items =
-recipe.ingredients[category].items
-?
-recipe.ingredients[category].items
-:
-recipe.ingredients[category];
 
 
-items.forEach(item=>{
+        shoppingChecks.forEach(check=>{
 
 
-if(!ingredients[category].includes(item)){
+            status[check.dataset.item] =
 
+            check.checked;
 
-ingredients[category].push(item);
 
+        });
 
-}
 
 
-});
+        localStorage.setItem(
 
+            "shoppingStatus",
 
-}
+            JSON.stringify(status)
 
+        );
 
-});
 
+    }
 
 
-console.log(ingredients);
 
-let html = "";
 
 
-for(let category in ingredients){
+    function loadShoppingStatus(){
 
 
-html += `
 
-<h3>
-${category}
-</h3>
+        let saved =
 
+        JSON.parse(
 
-`;
+            localStorage.getItem(
+                "shoppingStatus"
+            )
 
+        )
 
-ingredients[category].forEach(item=>{
+        || {};
 
 
-html += `
 
-<label>
+        shoppingChecks.forEach(check=>{
 
-<input 
-type="checkbox"
-class="shopping-check"
-data-item="${item}"
->
 
-${item}
+            if(
+                saved[check.dataset.item]
+            ){
 
-</label>
 
+                check.checked = true;
 
-<br>
 
-`;
+            }
 
 
-});
+        });
 
 
-}
 
+    }
 
 
-document.getElementById(
-"shoppingList"
-).innerHTML = html;
 
-const shoppingChecks =
-document.querySelectorAll(
-".shopping-check"
-);
 
 
+    function updateShoppingProgress(){
 
-function updateShoppingProgress(){
 
+        let total =
 
-let total =
-shoppingChecks.length;
+        shoppingChecks.length;
 
 
-let done = 0;
 
+        let done = 0;
 
-shoppingChecks.forEach(
-check=>{
 
 
-if(check.checked){
+        shoppingChecks.forEach(check=>{
 
-done++;
 
-}
+            if(check.checked){
 
+                done++;
 
-});
+            }
 
 
-document.getElementById(
-"shoppingProgress"
-).innerHTML =
+        });
 
-`${done} / ${total}`;
 
 
-}
+        document.getElementById(
+            "shoppingProgress"
+        ).innerHTML =
 
 
-shoppingChecks.forEach(
-check=>{
+        `${done} / ${total}`;
 
 
-check.addEventListener(
-"change",
-()=>{
 
+    }
 
-saveShoppingStatus();
 
-updateShoppingProgress();
 
 
-});
 
+    shoppingChecks.forEach(check=>{
 
-});
 
+        check.addEventListener(
 
-function saveShoppingStatus(){
+            "change",
 
+            ()=>{
 
-let status={};
 
+                saveShoppingStatus();
 
-shoppingChecks.forEach(check=>{
 
+                updateShoppingProgress();
 
-status[check.dataset.item] =
-check.checked;
 
+            }
 
-});
+        );
 
 
-localStorage.setItem(
-"shoppingStatus",
-JSON.stringify(status)
-);
+    });
 
 
-}
 
-function loadShoppingStatus(){
 
+    loadShoppingStatus();
 
-let saved =
-JSON.parse(
-localStorage.getItem("shoppingStatus")
-)
-|| {};
 
+    updateShoppingProgress();
 
-
-shoppingChecks.forEach(check=>{
-
-
-if(saved[check.dataset.item]){
-
-
-check.checked = true;
-
-
-}
-
-
-});
 
 
 }
 
 
 
-loadShoppingStatus();
-
-updateShoppingProgress();
+initShopping();
