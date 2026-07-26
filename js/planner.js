@@ -68,15 +68,13 @@ Choose Recipe
 
 
 
-                    ${recipes.map(recipe=>`
+                  ${recipes.map(recipe=>`
 
-                    <option value="${recipe.id}">
+<option value="${recipe.id}">
+${recipe.id} - ${recipe.name}
+</option>
 
-                    ${recipe.name}
-
-                    </option>
-
-                    `).join("")}
+`).join("")}
 
 
 
