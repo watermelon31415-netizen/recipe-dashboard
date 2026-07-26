@@ -5,23 +5,7 @@ document
 async ()=>{
 
 
-let newRecipe = {
-
-name:
-document.getElementById("recipeName").value,
-
-
-meal:
-document.getElementById("meal").value,
-
-
-tags:
-document.getElementById("tags")
-.value
-.split(",")
-.map(tag=>tag.trim())
-.filter(tag=>tag),
-
+// ① 先上传图片
 
 let imageUrl = "";
 
@@ -80,10 +64,38 @@ urlData.publicUrl;
 }
 
 
+
+// ② 再创建 recipe 对象
+
+let newRecipe = {
+
+
+name:
+document.getElementById("recipeName").value,
+
+
+meal:
+document.getElementById("meal").value,
+
+
+image_url:
+imageUrl,
+
+
+tags:
+document.getElementById("tags")
+.value
+.split(",")
+.map(tag=>tag.trim())
+.filter(tag=>tag),
+
+
+
 time:
 Number(
 document.getElementById("time").value
 ),
+
 
 
 note:
@@ -93,7 +105,9 @@ document.getElementById("note").value,
 link:"",
 
 
+
 ingredients:{
+
 
 "🥩 Meat":
 document.getElementById("meat")
@@ -101,6 +115,7 @@ document.getElementById("meat")
 .split(",")
 .map(i=>i.trim())
 .filter(i=>i),
+
 
 
 "🥦 Vegetables":
@@ -111,12 +126,14 @@ document.getElementById("vegetables")
 .filter(i=>i),
 
 
+
 "🍚 Main":
 document.getElementById("main")
 .value
 .split(",")
 .map(i=>i.trim())
 .filter(i=>i),
+
 
 
 "🧂 Seasoning":
@@ -126,7 +143,9 @@ document.getElementById("seasoning")
 .map(i=>i.trim())
 .filter(i=>i)
 
+
 }
+
 
 };
 
@@ -135,9 +154,11 @@ document.getElementById("seasoning")
 console.log(newRecipe);
 
 
-const { data, error } = await supabaseClient
+
+const {data,error}=await supabaseClient
 .from("recipes")
 .insert([newRecipe]);
+
 
 
 if(error){
@@ -150,8 +171,10 @@ return;
 
 }
 
-alert(
-"Recipe Saved!"
-);
+
+
+alert("Recipe Saved!");
+
+
 
 });
