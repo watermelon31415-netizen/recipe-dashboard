@@ -206,7 +206,117 @@ todayHTML ||
 
 "No meal planned";
 
+// ======================
+// Weekly Meal Plan
+// ======================
 
+
+let weeklyHTML = "";
+
+
+
+const weekDays = [
+
+"Monday",
+"Tuesday",
+"Wednesday",
+"Thursday",
+"Friday",
+"Saturday",
+"Sunday"
+
+];
+
+
+
+weekDays.forEach(day=>{
+
+
+let dayMeals = mealPlan.filter(
+
+item => item.day === day
+
+);
+
+
+
+weeklyHTML += `
+
+<h3>
+${day}
+</h3>
+
+`;
+
+
+
+if(dayMeals.length === 0){
+
+
+weeklyHTML += `
+
+<p>
+No meal planned
+</p>
+
+`;
+
+
+
+}
+else{
+
+
+dayMeals.forEach(item=>{
+
+
+let recipe = recipes.find(
+
+r=>r.id == item.recipe_id
+
+);
+
+
+
+if(recipe){
+
+
+weeklyHTML += `
+
+
+<p>
+
+${item.meal}:
+
+<a href="recipe-detail.html?id=${recipe.id}">
+
+${recipe.name}
+
+</a>
+
+</p>
+
+
+`;
+
+
+}
+
+
+});
+
+
+}
+
+
+
+});
+
+
+
+document.getElementById(
+"weeklyMealPlan"
+).innerHTML = weeklyHTML;
 
 
 // ======================
