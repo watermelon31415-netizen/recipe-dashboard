@@ -22,6 +22,12 @@ async function initShopping(){
     .select("*");
 
 
+    console.log(
+"Supabase meal_plans:",
+data
+);
+
+
 
     if(error){
 
