@@ -51,7 +51,21 @@ data.meal || "";
 
 
 document.getElementById("tags").value =
-(data.tags || []).join(", ");
+
+Array.isArray(data.tags)
+
+?
+data.tags.join(", ")
+
+:
+
+data.tags || "";
+
+
+console.log(
+"Loaded tags:",
+data.tags
+);
 
 
 document.getElementById("time").value =
