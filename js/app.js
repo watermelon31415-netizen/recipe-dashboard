@@ -50,7 +50,13 @@ ${recipe.name}
 🏷 ${(recipe.tags || []).join(" ")}
 </p>
 
-<button onclick="deleteRecipe(${recipe.id})">
+<button
+onclick="location.href='add-recipe.html?id=${recipe.id}'">
+✏️ Edit
+</button>
+
+<button
+onclick="deleteRecipe(${recipe.id})">
 🗑 Delete
 </button>
 
