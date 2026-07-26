@@ -252,14 +252,17 @@ async function loadMealPlan(){
 
 
 
-        if(saved){
+       if(saved){
 
+select.value =
+String(saved.recipe_id);
 
-            select.value =
-            saved.recipe_id;
+}
+else{
 
+select.value = "";
 
-        }
+}
 
 
     });
