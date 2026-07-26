@@ -14,7 +14,10 @@ const {data,error}=await supabaseClient
 
 if(error){
 
-console.log("Load recipes error:", error);
+console.log(
+"Load recipes error:",
+error
+);
 
 return;
 
@@ -22,7 +25,33 @@ return;
 
 
 
-recipes = data || [];
+recipes = (data || []).map(recipe=>{
+
+
+return {
+
+
+...recipe,
+
+
+// 兼容旧代码
+image:
+recipe.image_url,
+
+
+// 兼容 source
+source:{
+youtube:"",
+xiaohongshu:"",
+link:recipe.link || ""
+}
+
+
+
+};
+
+
+});
 
 
 
