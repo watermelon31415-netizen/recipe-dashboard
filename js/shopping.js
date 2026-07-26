@@ -102,6 +102,39 @@ mealPlan[0]
     );
 
 
+    if(selectedRecipes.length === 0){
+
+
+shoppingList.innerHTML = `
+
+<h3>
+🛒 No shopping items
+</h3>
+
+<p>
+Add meals in Weekly Planner first.
+</p>
+
+`;
+
+
+// 清除旧购买状态
+
+localStorage.removeItem(
+"shoppingStatus"
+);
+
+
+document.getElementById(
+"shoppingProgress"
+).innerHTML =
+"0 / 0";
+
+
+return;
+
+
+}
 
     // ======================
     // 合并食材
