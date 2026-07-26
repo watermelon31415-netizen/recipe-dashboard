@@ -11,6 +11,101 @@ loadRecipe();
 }
 
 
+const recipeId =
+new URLSearchParams(
+window.location.search
+).get("id");
+
+
+if(recipeId){
+
+loadRecipe();
+
+}
+
+
+// 加这里
+async function loadRecipe(){
+
+
+const {data,error}=
+
+await supabaseClient
+.from("recipes")
+.select("*")
+.eq("id", recipeId)
+.single();
+
+
+
+if(error){
+
+console.log(error);
+
+return;
+
+}
+
+
+
+document.getElementById("recipeName").value =
+data.name || "";
+
+
+document.getElementById("meal").value =
+data.meal || "";
+
+
+document.getElementById("tags").value =
+(data.tags || []).join(", ");
+
+
+document.getElementById("time").value =
+data.time || "";
+
+
+document.getElementById("note").value =
+data.note || "";
+
+
+
+document.getElementById("meat").value =
+(data.ingredients?.["🥩 Meat"] || []).join(", ");
+
+
+
+document.getElementById("vegetables").value =
+(data.ingredients?.["🥦 Vegetables"] || []).join(", ");
+
+
+
+document.getElementById("main").value =
+(data.ingredients?.["🍚 Main"] || []).join(", ");
+
+
+
+document.getElementById("seasoning").value =
+(data.ingredients?.["🧂 Seasoning"] || []).join(", ");
+
+
+
+document.getElementById("saveRecipe").innerText =
+"Update Recipe";
+
+
+}
+
+
+
+// 原来的 saveRecipe 从这里开始
+
+document
+.getElementById("saveRecipe")
+.addEventListener(
+"click",
+async ()=>{
+  
+
 document
 .getElementById("saveRecipe")
 .addEventListener(
@@ -221,23 +316,3 @@ recipeId
 
 location.href =
 "recipes.html";
-
-
-
-if(error){
-
-console.log(error);
-
-alert("Save failed");
-
-return;
-
-}
-
-
-
-alert("Recipe Saved!");
-
-
-
-});
