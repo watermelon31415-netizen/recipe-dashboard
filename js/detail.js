@@ -6,59 +6,111 @@ window.location.search
 const id = params.get("id");
 
 
-const recipe = recipes.find(
-item => item.id == id
-);
+
+async function loadRecipeDetail(){
+
+
+const {data,error}=await supabaseClient
+.from("recipes")
+.select("*")
+.eq("id",id)
+.single();
+
+
+
+if(error){
+
+console.log(error);
+
+document.getElementById("recipeName").innerHTML =
+"Recipe Not Found";
+
+return;
+
+}
+
+
+
+const recipe = {
+
+
+...data,
+
+
+image:
+data.image_url
+
+
+};
+
+
 
 console.log(recipe);
 
-if(recipe){
-
-    document.getElementById("recipeName").innerHTML =
-    recipe.name;
 
 
-    document.getElementById("recipeImage").src =
-    recipe.image;
+// 基本信息
+
+document.getElementById("recipeName").innerHTML =
+recipe.name;
 
 
-    document.getElementById("recipeMeal").innerHTML =
-    "🍽 " + recipe.meal;
+
+document.getElementById("recipeImage").src =
+recipe.image;
 
 
-    document.getElementById("recipeTags").innerHTML =
-    "🏷 " + recipe.tags.join(" 🏷 ");
 
-}
-else{
+document.getElementById("recipeMeal").innerHTML =
+"🍽 " + recipe.meal;
 
-    document.getElementById("recipeName").innerHTML =
-    "Recipe Not Found";
 
-}
+
+document.getElementById("recipeTags").innerHTML =
+"🏷 " + (recipe.tags || []).join(" 🏷 ");
+
+
+
+
+// Link
 
 document.getElementById("recipeSource").innerHTML =
 
 `
-YouTube:
-<a href="${recipe.source.youtube}">
-${recipe.source.youtube}
-</a>
 
-<br>
+${recipe.link ?
 
-小红书:
-<a href="${recipe.source.xiaohongshu}">
-${recipe.source.xiaohongshu}
+`
+🔗 
+<a href="${recipe.link}" target="_blank">
+Recipe Link
 </a>
+`
+
+:
+
+""
+
+}
+
 `;
 
 
 
+
+// Note
+
 document.getElementById("recipeNote").innerHTML =
-recipe.note;
+recipe.note || "";
+
+
+
+
+
+// Ingredients
 
 let ingredientHTML = "";
+
 
 
 for(
@@ -75,8 +127,16 @@ ${category}
 `;
 
 
-recipe.ingredients[category].items.forEach(
-item=>{
+
+let items =
+recipe.ingredients[category];
+
+
+
+if(Array.isArray(items)){
+
+
+items.forEach(item=>{
 
 
 ingredientHTML += `
@@ -87,16 +147,20 @@ ingredientHTML += `
 type="checkbox"
 class="ingredient-check"
 >
+
 ${item}
 
 </label>
 
 <br>
 
-
 `;
 
+
 });
+
+
+}
 
 
 }
@@ -106,25 +170,33 @@ ${item}
 document.getElementById("ingredients").innerHTML =
 ingredientHTML;
 
-const checks = document.querySelectorAll(
+
+
+
+const checks =
+document.querySelectorAll(
 ".ingredient-check"
 );
+
+
+
 
 
 function updateProgress(){
 
 
-let total = checks.length;
+let total =
+checks.length;
 
 
 let done = 0;
 
 
-let missingItems = [];
+let missingItems=[];
 
 
-checks.forEach(
-(check)=>{
+
+checks.forEach(check=>{
 
 
 if(check.checked){
@@ -144,24 +216,27 @@ check.parentElement.innerText
 });
 
 
-let percent = 0;
+
+let percent=0;
 
 
-if(total > 0){
+
+if(total>0){
 
 percent =
 Math.round(
-done / total * 100
+done/total*100
 );
 
 }
 
 
 
+
 document.getElementById(
 "progressFill"
 ).style.width =
-percent + "%";
+percent+"%";
 
 
 
@@ -173,12 +248,13 @@ document.getElementById(
 
 
 
+
 document.getElementById(
 "missing"
 ).innerHTML =
 
 
-missingItems.length > 0
+missingItems.length
 
 ?
 
@@ -200,25 +276,6 @@ ${missingItems.join("<br>")}
 
 
 
-checks.forEach(
-check=>{
-
-check.addEventListener(
-"change",
-()=>{
-
-saveIngredientStatus();
-
-updateProgress();
-
-}
-);
-
-}
-);
-
-
-
 
 function saveIngredientStatus(){
 
@@ -226,8 +283,8 @@ function saveIngredientStatus(){
 let status=[];
 
 
-checks.forEach(
-(check,index)=>{
+
+checks.forEach(check=>{
 
 
 status.push(
@@ -238,20 +295,24 @@ check.checked
 });
 
 
+
 localStorage.setItem(
-"ingredientStatus_" + recipe.id,
+"ingredientStatus_"+recipe.id,
 JSON.stringify(status)
 );
 
 
 }
 
+
+
+
 function loadIngredientStatus(){
 
 
 let saved =
 localStorage.getItem(
-"ingredientStatus_" + recipe.id
+"ingredientStatus_"+recipe.id
 );
 
 
@@ -282,6 +343,34 @@ status[index];
 
 
 
+
+checks.forEach(check=>{
+
+
+check.addEventListener(
+"change",
+()=>{
+
+
+saveIngredientStatus();
+
+updateProgress();
+
+
+});
+
+
+});
+
+
+
 loadIngredientStatus();
 
 updateProgress();
+
+
+}
+
+
+
+loadRecipeDetail();
