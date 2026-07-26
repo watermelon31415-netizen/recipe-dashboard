@@ -45,6 +45,9 @@ ${recipe.name}
 🍽 ${recipe.meal}
 </p>
 
+<p>
+⏱ ${recipe.time || "-"} min
+</p>
 
 <p>
 🏷 ${(recipe.tags || []).join(" ")}
