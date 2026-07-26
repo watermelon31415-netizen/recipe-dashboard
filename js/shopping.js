@@ -452,7 +452,7 @@ ${item}
     updateShoppingProgress();
 
 
-
+}   // ← 这里关闭 initShopping()
 
 
 initShopping();
