@@ -17,14 +17,19 @@ async function initShopping(){
 
     const {data:mealPlan,error}=
 
-    await supabaseClient
-    .from("meal_plans")
-    .select("*");
+await supabaseClient
+.from("meal_plans")
+.select("*");
 
 
-    console.log(
-"Supabase meal_plans:",
-data
+console.log(
+"Shopping meal plans:",
+mealPlan
+);
+
+console.log(
+"Shopping error:",
+error
 );
 
 
