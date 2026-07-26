@@ -23,8 +23,61 @@ document.getElementById("tags")
 .filter(tag=>tag),
 
 
-image_url:
-document.getElementById("image").value,
+let imageUrl = "";
+
+
+const file =
+document.getElementById("image").files[0];
+
+
+if(file){
+
+
+const fileName =
+Date.now() + "-" + file.name;
+
+
+
+const {error:uploadError}=
+
+await supabaseClient
+.storage
+.from("recipes")
+.upload(
+fileName,
+file
+);
+
+
+
+if(uploadError){
+
+console.log(uploadError);
+
+alert("Image upload failed");
+
+return;
+
+}
+
+
+
+const {data:urlData}=
+
+supabaseClient
+.storage
+.from("recipes")
+.getPublicUrl(
+fileName
+);
+
+
+
+imageUrl =
+urlData.publicUrl;
+
+
+}
 
 
 time:
