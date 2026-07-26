@@ -62,9 +62,9 @@ async function initPlanner(){
                 >
 
 
-                    <option>
-                    Choose Recipe
-                    </option>
+                  <option value="">
+Choose Recipe
+</option>
 
 
 
