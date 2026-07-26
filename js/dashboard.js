@@ -294,8 +294,21 @@ let dayMeals = mealPlan.filter(
 item => item.day === day
 
 );
+  
+
+const mealOrder = [
+    "Breakfast",
+    "Lunch",
+    "Dinner"
+];
 
 
+dayMeals.sort((a,b)=>
+    mealOrder.indexOf(a.meal)
+    -
+    mealOrder.indexOf(b.meal)
+);
+  
 
 weeklyHTML += `
 
