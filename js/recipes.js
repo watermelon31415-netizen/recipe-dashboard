@@ -62,3 +62,38 @@ recipes
 
 
 }
+
+async function deleteRecipe(id){
+
+
+if(!confirm("Delete this recipe?")){
+
+return;
+
+}
+
+
+const {error}=await supabaseClient
+.from("recipes")
+.delete()
+.eq("id",id);
+
+
+if(error){
+
+console.log(error);
+
+alert("Delete failed");
+
+return;
+
+}
+
+
+alert("Recipe deleted");
+
+
+location.reload();
+
+
+}
