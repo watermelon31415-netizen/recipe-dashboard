@@ -7,7 +7,6 @@ async ()=>{
 
 let newRecipe = {
 
-
 name:
 document.getElementById("recipeName").value,
 
@@ -43,52 +42,38 @@ link:"",
 
 ingredients:{
 
-
 "🥩 Meat":
-
-document
-.getElementById("meat")
+document.getElementById("meat")
 .value
 .split(",")
 .map(i=>i.trim())
 .filter(i=>i),
-
 
 
 "🥦 Vegetables":
-
-document
-.getElementById("vegetables")
+document.getElementById("vegetables")
 .value
 .split(",")
 .map(i=>i.trim())
 .filter(i=>i),
-
 
 
 "🍚 Main":
-
-document
-.getElementById("main")
+document.getElementById("main")
 .value
 .split(",")
 .map(i=>i.trim())
 .filter(i=>i),
 
 
-
 "🧂 Seasoning":
-
-document
-.getElementById("seasoning")
+document.getElementById("seasoning")
 .value
 .split(",")
 .map(i=>i.trim())
 .filter(i=>i)
 
-
 }
-
 
 };
 
