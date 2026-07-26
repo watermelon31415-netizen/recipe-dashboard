@@ -1,18 +1,18 @@
 const days = [
-"Monday",
-"Tuesday",
-"Wednesday",
-"Thursday",
-"Friday",
-"Saturday",
-"Sunday"
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
 ];
 
 
-const meals=[
-"Breakfast",
-"Lunch",
-"Dinner"
+const meals = [
+    "Breakfast",
+    "Lunch",
+    "Dinner"
 ];
 
 
@@ -21,263 +21,248 @@ document.getElementById("planner");
 
 
 
-days.forEach(day=>{
+async function initPlanner(){
 
 
-planner.innerHTML += `
-
-
-<div class="day-card">
-
-
-<h2>
-${day}
-</h2>
+    // 等 recipes 从 Supabase 加载完成
+    await loadRecipes();
 
 
 
-${meals.map(meal=>`
+    days.forEach(day=>{
 
 
-<div>
+        planner.innerHTML += `
 
 
-<label>
-${meal}
-</label>
+        <div class="day-card">
 
 
-<select 
-class="meal-select"
-data-day="${day}"
-data-meal="${meal}"
->
-
-
-<option>
-Choose Recipe
-</option>
-
-
-${recipes.map(recipe=>`
-
-<option value="${recipe.id}">
-
-${recipe.name}
-
-</option>
-
-`).join("")}
+            <h2>
+            ${day}
+            </h2>
 
 
 
-</select>
+            ${meals.map(meal=>`
 
 
-</div>
+            <div>
 
 
-`).join("")}
+                <label>
+                ${meal}
+                </label>
 
 
-
-</div>
-
-
-
-`;
-
-});
-
-const selects =
-document.querySelectorAll(
-".meal-select"
-);
+                <select
+                class="meal-select"
+                data-day="${day}"
+                data-meal="${meal}"
+                >
 
 
-
-selects.forEach(select=>{
-
-
-select.addEventListener(
-"change",
-()=>{
-
-
-let plan =
-JSON.parse(
-localStorage.getItem("mealPlan")
-)
-|| {};
+                    <option>
+                    Choose Recipe
+                    </option>
 
 
 
-let day =
-select.dataset.day;
+                    ${recipes.map(recipe=>`
+
+                    <option value="${recipe.id}">
+
+                    ${recipe.name}
+
+                    </option>
+
+                    `).join("")}
 
 
-let meal =
-select.dataset.meal;
+
+                </select>
+
+
+            </div>
+
+
+            `).join("")}
 
 
 
-if(!plan[day]){
+        </div>
 
-plan[day]={};
+
+        `;
+
+
+    });
+
+
+
+    const selects =
+    document.querySelectorAll(
+        ".meal-select"
+    );
+
+
+
+    selects.forEach(select=>{
+
+
+        select.addEventListener(
+            "change",
+            async ()=>{
+
+
+                await saveMealPlan(
+
+                    select.dataset.day,
+
+                    select.dataset.meal,
+
+                    select.value
+
+                );
+
+
+            }
+        );
+
+
+    });
+
+
+
+    // 加载已经保存的计划
+    await loadMealPlan();
+
 
 }
 
 
 
-plan[day][meal]=
-select.value;
 
 
 
-await saveMealPlan(
-day,
-meal,
-select.value
-);
+async function saveMealPlan(
+    day,
+    meal,
+    recipe_id
+){
+
+
+    const {error}=
+
+    await supabaseClient
+    .from("meal_plans")
+    .upsert(
+
+        {
+
+            day: day,
+
+            meal: meal,
+
+            recipe_id: Number(recipe_id)
+
+        },
+
+        {
+
+            onConflict:
+            "day,meal"
+
+        }
+
+    );
 
 
 
-});
+    if(error){
+
+        console.log(
+            "Save meal plan error:",
+            error
+        );
+
+    }
 
 
-});
+}
 
-// 读取保存的 Meal Plan
+
+
+
+
 
 async function loadMealPlan(){
 
 
-const {data,error}=
+    const {data,error}=
 
-await supabaseClient
-.from("meal_plans")
-.select("*");
+    await supabaseClient
+    .from("meal_plans")
+    .select("*");
 
 
 
-if(error){
+    if(error){
 
-console.log(error);
+        console.log(
+            "Load meal plan error:",
+            error
+        );
 
-return;
+        return;
+
+    }
+
+
+
+    const selects =
+    document.querySelectorAll(
+        ".meal-select"
+    );
+
+
+
+    selects.forEach(select=>{
+
+
+        const saved =
+
+        data.find(item=>
+
+            item.day === select.dataset.day
+
+            &&
+
+            item.meal === select.dataset.meal
+
+        );
+
+
+
+        if(saved){
+
+
+            select.value =
+            saved.recipe_id;
+
+
+        }
+
+
+    });
+
+
 
 }
 
 
 
-selects.forEach(select=>{
-
-
-let day =
-select.dataset.day;
-
-
-let meal =
-select.dataset.meal;
 
 
 
-let saved =
-data.find(item=>
-
-item.day==day &&
-item.meal==meal
-
-);
-
-
-
-if(saved){
-
-select.value =
-saved.recipe_id;
-
-}
-
-
-});
-
-
-}
-
-
-loadMealPlan();
-
-
-selects.forEach(select=>{
-
-
-let day =
-select.dataset.day;
-
-
-let meal =
-select.dataset.meal;
-
-
-
-if(
-savedPlan[day] &&
-savedPlan[day][meal]
-){
-
-select.value =
-savedPlan[day][meal];
-
-}
-
-
-});
-
-async function saveMealPlan(
-day,
-meal,
-recipe_id
-){
-
-
-const {error}=
-
-await supabaseClient
-.from("meal_plans")
-.upsert([
-
-{
-
-day:day,
-
-meal:meal,
-
-recipe_id:Number(recipe_id)
-
-}
-
-],
-
-{
-
-onConflict:
-"day,meal"
-
-}
-
-);
-
-
-
-if(error){
-
-console.log(
-"Save meal plan error:",
-error
-);
-
-}
-
-
-}
+initPlanner();
