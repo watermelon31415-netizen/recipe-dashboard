@@ -73,22 +73,46 @@ return;
 }
 
 
+
+// 1. 删除 Meal Planner 关联
+
+const {error:planError}=
+
 await supabaseClient
 .from("meal_plans")
 .delete()
-.eq("recipe_id",id);
+.eq("recipe_id", id);
 
 
 
-const {error}=await supabaseClient
+if(planError){
+
+console.log(
+"Delete meal plan error:",
+planError
+);
+
+}
+
+
+
+// 2. 删除 Recipe
+
+const {error}=
+
+await supabaseClient
 .from("recipes")
 .delete()
-.eq("id",id);
+.eq("id", id);
+
 
 
 if(error){
 
-console.log(error);
+console.log(
+"Delete recipe error:",
+error
+);
 
 alert("Delete failed");
 
@@ -97,7 +121,11 @@ return;
 }
 
 
-alert("Recipe deleted");
+
+alert(
+"Recipe deleted"
+);
+
 
 
 location.reload();
