@@ -59,6 +59,16 @@ error
 
     // 找出本周安排的菜
 
+    console.log(
+"All recipes:",
+recipes
+);
+
+
+console.log(
+"First meal plan:",
+mealPlan[0]
+);
 
     mealPlan.forEach(item=>{
 
