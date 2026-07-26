@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Recipe Dashboard</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="layout">
+
+
+    <aside class="sidebar">
+
+        <h2>🍳 Recipe Dashboard</h2>
+
+
+        <nav>
+
+            <a href="index.html">
+                🏠 Dashboard
+            </a>
+
+            <a href="recipes.html">
+                🍳 Recipes
+            </a>
+
+            <a href="planner.html">
+                📅 Meal Planner
+            </a>
+
+            <a href="shopping.html">
+                🛒 Shopping List
+            </a>
+
+            <a href="add-recipe.html">
+➕ Add Recipe
+</a>
+
+        </nav>
+
+
+    </aside>
+
+
+
+<main class="content">
+
+
+<h1>
+➕ Add Recipe
+</h1>
+
+
+<section class="card">
+
+
+<label>
+Recipe Name
+</label>
+
+<input id="recipeName"
+placeholder="Chicken Curry">
+
+
+<br><br>
+
+
+<label>
+Meal
+</label>
+
+<select id="meal">
+
+<option>
+Breakfast
+</option>
+
+<option>
+Lunch
+</option>
+
+<option>
+Dinner
+</option>
+
+</select>
+
+
+<br><br>
+
+
+<label>
+Tags
+</label>
+
+<input id="tags"
+placeholder="High Protein, Home Cooking">
+
+
+<br><br>
+
+
+<label>
+Image Path
+</label>
+
+<input id="image"
+placeholder="assets/images/example.jpg">
+
+
+<br><br>
+
+
+<label>
+Cooking Time
+</label>
+
+<input id="time"
+type="number"
+placeholder="20">
+
+
+<br><br>
+
+
+<label>
+Note
+</label>
+
+<textarea id="note"></textarea>
+
+
+<br><br>
+
+
+<h2>
+Ingredients
+</h2>
+
+
+<label>
+🥩 Meat
+</label>
+
+<input id="meat"
+placeholder="Chicken Breast, Beef">
+
+
+<br><br>
+
+
+<label>
+🥦 Vegetables
+</label>
+
+<input id="vegetables"
+placeholder="Broccoli, Carrot">
+
+
+<br><br>
+
+
+<label>
+🍚 Main
+</label>
+
+<input id="main"
+placeholder="Rice, Pasta">
+
+
+<br><br>
+
+
+<label>
+🧂 Seasoning
+</label>
+
+<input id="seasoning"
+placeholder="Salt, Pepper">
+
+
+<br><br>
+
+
+<button id="saveRecipe">
+
+Save Recipe
+
+</button>
+
+
+</section>
+
+
+</main>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase.js"></script>
+
+<script src="js/recipes.js"></script>
+
+<script src="js/add-recipe.js"></script>
+
+</body>
+
+</html>
