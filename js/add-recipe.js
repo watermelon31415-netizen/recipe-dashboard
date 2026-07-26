@@ -420,7 +420,10 @@ result.error;
 
 if(error){
 
-console.log(error);
+console.log(
+"INSERT ERROR:",
+error
+);
 
 alert(
 "Save failed"
