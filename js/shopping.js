@@ -284,55 +284,6 @@ ${item}
 
 
 
-        html += `
-
-
-        <h3>
-        ${category}
-        </h3>
-
-
-        `;
-
-
-
-        ingredients[category]
-        .forEach(item=>{
-
-
-            html += `
-
-
-            <label>
-
-
-            <input
-            type="checkbox"
-            class="shopping-check"
-            data-item="${item}"
-            >
-
-
-            ${item}
-
-
-            </label>
-
-
-            <br>
-
-
-            `;
-
-
-        });
-
-
-
-    }
-
-
-
     shoppingList.innerHTML = html;
 
 
