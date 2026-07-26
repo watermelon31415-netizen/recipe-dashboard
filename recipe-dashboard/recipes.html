@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Recipe Dashboard</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+
+<body>
+
+
+<div class="layout">
+
+
+    <aside class="sidebar">
+
+        <h2>🍳 Recipe Dashboard</h2>
+
+
+        <nav>
+
+            <a href="index.html">
+                🏠 Dashboard
+            </a>
+
+            <a href="recipes.html">
+                🍳 Recipes
+            </a>
+
+            <a href="planner.html">
+                📅 Meal Planner
+            </a>
+
+            <a href="shopping.html">
+                🛒 Shopping List
+            </a>
+
+            <a href="add-recipe.html">
+    ➕ Add Recipe
+</a>
+
+
+        </nav>
+
+
+    </aside>
+
+
+
+    <main class="content">
+
+
+        <h1>🍳 Recipes</h1>
+
+        <section class="recipe-tools">
+
+
+<input 
+type="text" 
+placeholder="🔍 Search recipe..."
+>
+
+
+<select>
+
+<option>
+All Meals
+</option>
+
+<option>
+Breakfast
+</option>
+
+<option>
+Lunch
+</option>
+
+<option>
+Dinner
+</option>
+
+</select>
+
+
+</section>
+
+
+<div class="recipe-grid">
+
+
+<div class="recipe-grid" id="recipeList">
+
+</div>
+
+
+</div>
+
+
+    </main>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase.js"></script>
+
+<script src="js/recipes.js"></script>
+
+<script src="js/app.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Recipe Dashboard</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="layout">
+
+
+    <aside class="sidebar">
+
+        <h2>🍳 Recipe Dashboard</h2>
+
+
+        <nav>
+
+            <a href="index.html">
+                🏠 Dashboard
+            </a>
+
+            <a href="recipes.html">
+                🍳 Recipes
+            </a>
+
+            <a href="planner.html">
+                📅 Meal Planner
+            </a>
+
+            <a href="shopping.html">
+                🛒 Shopping List
+            </a>
+
+            <a href="add-recipe.html">
+    ➕ Add Recipe
+</a>
+
+
+        </nav>
+
+
+    </aside>
+
+
+
+    <main class="content">
+
+
+        <h1>
+🏠 Dashboard
+</h1>
+
+
+<section class="card">
+
+<h2>
+🍳 This Week Meal Plan
+</h2>
+
+<div id="mealProgress">
+
+</div>
+
+</section>
+
+
+
+<section class="card">
+
+<h2>
+🛒 Shopping Progress
+</h2>
+
+<div id="shoppingProgress">
+
+
+</div>
+
+</section>
+
+
+
+<section class="card">
+
+<h2>
+Today
+</h2>
+
+<div id="todayMeal">
+
+</div>
+
+</section>
+
+
+
+<section class="card">
+
+<h2>
+🎲 Today Eat What?
+</h2>
+
+
+<button id="randomBtn">
+
+🎲 Random Recipe
+
+</button>
+
+
+<div id="randomResult">
+
+</div>
+
+
+</section>
+
+
+        <section class="card">
+
+            <h2>📅 Weekly Meal Plan</h2>
+
+            <p>
+            Your weekly meals will appear here.
+            </p>
+
+        </section>
+
+<section class="card">
+
+<h2>
+🎲 Random Recipe
+</h2>
+
+<label>
+Meal
+</label>
+
+<select id="randomMeal">
+
+<option value="">
+All
+</option>
+
+<option value="Breakfast">
+Breakfast
+</option>
+
+<option value="Lunch">
+Lunch
+</option>
+
+<option value="Dinner">
+Dinner
+</option>
+
+</select>
+
+
+<br><br>
+
+
+<label>
+Time
+</label>
+
+
+<select id="randomTime">
+
+<option value="">
+Any
+</option>
+
+
+<option value="30">
+≤30 min
+</option>
+
+
+<option value="60">
+≤60 min
+</option>
+
+</select>
+
+
+<br><br>
+
+
+<label>
+Tag
+</label>
+
+
+<input 
+id="randomTag"
+placeholder="例如 High Protein"
+>
+
+
+<br><br>
+
+
+<div id="randomRecipe">
+
+Loading...
+
+</div>
+
+
+<button id="randomButton">
+
+🎲 Random
+
+</button>
+
+
+</section>
+
+    </main>
+
+
+</div>
+
+<script src="js/recipes.js"></script>
+
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
