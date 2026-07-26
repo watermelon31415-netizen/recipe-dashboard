@@ -50,6 +50,9 @@ ${recipe.name}
 🏷 ${(recipe.tags || []).join(" ")}
 </p>
 
+<button onclick="deleteRecipe(${recipe.id})">
+🗑 Delete
+</button>
 
 </div>
 
