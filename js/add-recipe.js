@@ -169,9 +169,58 @@ console.log(newRecipe);
 
 
 
-const {error}=await supabaseClient
+let error;
+
+
+if(recipeId){
+
+const result =
+
+await supabaseClient
+.from("recipes")
+.update(newRecipe)
+.eq("id", recipeId);
+
+
+error = result.error;
+
+}
+else{
+
+const result =
+
+await supabaseClient
 .from("recipes")
 .insert([newRecipe]);
+
+
+error = result.error;
+
+}
+
+
+if(error){
+
+console.log(error);
+
+alert("Save failed");
+
+return;
+
+}
+
+
+alert(
+recipeId
+?
+"Recipe Updated!"
+:
+"Recipe Saved!"
+);
+
+
+location.href =
+"recipes.html";
 
 
 
