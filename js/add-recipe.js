@@ -315,8 +315,14 @@ recipeId
 
 
 console.log(
-"New Recipe:",
+"Saving recipe:",
 newRecipe
+);
+
+
+console.log(
+"Tags:",
+newRecipe.tags
 );
 
 // 如果上传了新图片才更新 image_url
