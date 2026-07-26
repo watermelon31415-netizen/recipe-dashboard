@@ -188,6 +188,19 @@ document.getElementById(
 // Today's Meal
 // ======================
 
+const mealOrder = [
+    "Breakfast",
+    "Lunch",
+    "Dinner"
+];
+
+
+mealPlan.sort((a,b)=>
+    mealOrder.indexOf(a.meal)
+    -
+    mealOrder.indexOf(b.meal)
+);
+  
 
 const today =
 
