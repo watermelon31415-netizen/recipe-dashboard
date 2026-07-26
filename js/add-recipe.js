@@ -125,11 +125,14 @@ document
 async ()=>{
 
 
+// ======================
+// 图片处理
+// ======================
+
+
 let imageUrl = "";
 
 
-
-// 上传图片
 
 const file =
 
@@ -197,6 +200,10 @@ urlData.publicUrl;
 
 
 
+// ======================
+// 创建 Recipe 数据
+// ======================
+
 
 let newRecipe = {
 
@@ -214,12 +221,6 @@ meal:
 document
 .getElementById("meal")
 .value,
-
-
-
-image_url:
-
-imageUrl,
 
 
 
@@ -309,9 +310,22 @@ document
 
 
 
+// 如果上传了新图片才更新 image_url
+
+if(imageUrl){
+
+newRecipe.image_url =
+imageUrl;
+
+}
+
+
+
 console.log(
+"Saving:",
 newRecipe
 );
+
 
 
 
@@ -319,7 +333,10 @@ let error;
 
 
 
-// Edit
+// ======================
+// Edit 模式
+// ======================
+
 
 if(recipeId){
 
@@ -331,7 +348,7 @@ await supabaseClient
 .update(newRecipe)
 .eq(
 "id",
-recipeId
+Number(recipeId)
 );
 
 
@@ -343,7 +360,10 @@ result.error;
 
 
 
-// Add
+// ======================
+// New Recipe
+// ======================
+
 
 else{
 
@@ -365,11 +385,10 @@ result.error;
 
 
 
+
 if(error){
 
-console.log(
-error
-);
+console.log(error);
 
 alert(
 "Save failed"
