@@ -308,7 +308,16 @@ document
 
 };
 
+console.log(
+"Recipe ID:",
+recipeId
+);
 
+
+console.log(
+"New Recipe:",
+newRecipe
+);
 
 // 如果上传了新图片才更新 image_url
 
