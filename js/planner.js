@@ -111,23 +111,31 @@ async function initPlanner(){
 
 
         select.addEventListener(
-            "change",
-            async ()=>{
+    "change",
+    async ()=>{
 
 
-                await saveMealPlan(
-
-                    select.dataset.day,
-
-                    select.dataset.meal,
-
-                    select.value
-
-                );
-
-
-            }
+        console.log(
+            "Selected:",
+            select.dataset.day,
+            select.dataset.meal,
+            select.value
         );
+
+
+        await saveMealPlan(
+
+            select.dataset.day,
+
+            select.dataset.meal,
+
+            select.value
+
+        );
+
+
+    }
+);
 
 
     });
