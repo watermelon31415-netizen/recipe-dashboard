@@ -73,5 +73,66 @@ onclick="deleteRecipe(${recipe.id})">
 }
 
 
-
 showRecipes();
+
+
+
+document
+.getElementById("search")
+.addEventListener(
+"input",
+function(){
+
+
+console.log(
+"Searching:",
+this.value
+);
+
+
+
+const keyword =
+this.value
+.toLowerCase()
+.trim();
+
+
+
+const cards =
+document.querySelectorAll(
+".recipe-card"
+);
+
+
+
+cards.forEach(card=>{
+
+
+const text =
+card.innerText
+.toLowerCase();
+
+
+
+if(text.includes(keyword)){
+
+
+card.style.display =
+"block";
+
+
+}
+else{
+
+
+card.style.display =
+"none";
+
+
+}
+
+
+});
+
+
+});
