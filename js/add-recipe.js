@@ -4,27 +4,18 @@ window.location.search
 ).get("id");
 
 
+// ======================
+// Edit Mode Load Recipe
+// ======================
+
 if(recipeId){
 
-loadRecipe();
+    loadRecipe();
 
 }
 
 
-const recipeId =
-new URLSearchParams(
-window.location.search
-).get("id");
 
-
-if(recipeId){
-
-loadRecipe();
-
-}
-
-
-// 加这里
 async function loadRecipe(){
 
 
@@ -40,7 +31,10 @@ await supabaseClient
 
 if(error){
 
-console.log(error);
+console.log(
+"Load recipe error:",
+error
+);
 
 return;
 
@@ -70,22 +64,30 @@ data.note || "";
 
 
 document.getElementById("meat").value =
-(data.ingredients?.["🥩 Meat"] || []).join(", ");
+
+(data.ingredients?.["🥩 Meat"] || [])
+.join(", ");
 
 
 
 document.getElementById("vegetables").value =
-(data.ingredients?.["🥦 Vegetables"] || []).join(", ");
+
+(data.ingredients?.["🥦 Vegetables"] || [])
+.join(", ");
 
 
 
 document.getElementById("main").value =
-(data.ingredients?.["🍚 Main"] || []).join(", ");
+
+(data.ingredients?.["🍚 Main"] || [])
+.join(", ");
 
 
 
 document.getElementById("seasoning").value =
-(data.ingredients?.["🧂 Seasoning"] || []).join(", ");
+
+(data.ingredients?.["🧂 Seasoning"] || [])
+.join(", ");
 
 
 
@@ -97,29 +99,29 @@ document.getElementById("saveRecipe").innerText =
 
 
 
-// 原来的 saveRecipe 从这里开始
+// ======================
+// Save / Update Recipe
+// ======================
+
 
 document
 .getElementById("saveRecipe")
 .addEventListener(
 "click",
 async ()=>{
-  
 
-document
-.getElementById("saveRecipe")
-.addEventListener(
-"click",
-async ()=>{
-
-
-// 上传图片
 
 let imageUrl = "";
 
 
+
+// 上传图片
+
 const file =
-document.getElementById("image").files[0];
+
+document
+.getElementById("image")
+.files[0];
 
 
 
@@ -127,7 +129,12 @@ if(file){
 
 
 const fileName =
-Date.now() + "-" + file.name;
+
+Date.now()
++
+"-"
++
+file.name;
 
 
 
@@ -147,7 +154,9 @@ if(uploadError){
 
 console.log(uploadError);
 
-alert("Image upload failed");
+alert(
+"Image upload failed"
+);
 
 return;
 
@@ -174,25 +183,36 @@ urlData.publicUrl;
 
 
 
-// 创建 recipe
 
 let newRecipe = {
 
 
 name:
-document.getElementById("recipeName").value,
+
+document
+.getElementById("recipeName")
+.value,
+
 
 
 meal:
-document.getElementById("meal").value,
+
+document
+.getElementById("meal")
+.value,
+
 
 
 image_url:
+
 imageUrl,
 
 
+
 tags:
-document.getElementById("tags")
+
+document
+.getElementById("tags")
 .value
 .split(",")
 .map(tag=>tag.trim())
@@ -201,14 +221,21 @@ document.getElementById("tags")
 
 
 time:
+
 Number(
-document.getElementById("time").value
+document
+.getElementById("time")
+.value
 ),
 
 
 
 note:
-document.getElementById("note").value,
+
+document
+.getElementById("note")
+.value,
+
 
 
 link:"",
@@ -219,7 +246,9 @@ ingredients:{
 
 
 "🥩 Meat":
-document.getElementById("meat")
+
+document
+.getElementById("meat")
 .value
 .split(",")
 .map(i=>i.trim())
@@ -228,7 +257,9 @@ document.getElementById("meat")
 
 
 "🥦 Vegetables":
-document.getElementById("vegetables")
+
+document
+.getElementById("vegetables")
 .value
 .split(",")
 .map(i=>i.trim())
@@ -237,7 +268,9 @@ document.getElementById("vegetables")
 
 
 "🍚 Main":
-document.getElementById("main")
+
+document
+.getElementById("main")
 .value
 .split(",")
 .map(i=>i.trim())
@@ -246,7 +279,9 @@ document.getElementById("main")
 
 
 "🧂 Seasoning":
-document.getElementById("seasoning")
+
+document
+.getElementById("seasoning")
 .value
 .split(",")
 .map(i=>i.trim())
@@ -260,59 +295,96 @@ document.getElementById("seasoning")
 
 
 
-console.log(newRecipe);
+console.log(
+newRecipe
+);
 
 
 
 let error;
 
 
+
+// Edit
+
 if(recipeId){
+
 
 const result =
 
 await supabaseClient
 .from("recipes")
 .update(newRecipe)
-.eq("id", recipeId);
+.eq(
+"id",
+recipeId
+);
 
 
-error = result.error;
+error =
+result.error;
+
 
 }
+
+
+
+// Add
+
 else{
+
 
 const result =
 
 await supabaseClient
 .from("recipes")
-.insert([newRecipe]);
+.insert([
+newRecipe
+]);
 
 
-error = result.error;
+error =
+result.error;
+
 
 }
 
 
+
 if(error){
 
-console.log(error);
+console.log(
+error
+);
 
-alert("Save failed");
+alert(
+"Save failed"
+);
 
 return;
 
 }
 
 
+
 alert(
+
 recipeId
+
 ?
+
 "Recipe Updated!"
+
 :
+
 "Recipe Saved!"
+
 );
+
 
 
 location.href =
 "recipes.html";
+
+
+});
