@@ -288,6 +288,63 @@ select.value = "";
 
 
 
+// 清空本周 Meal Plan
+
+document
+.getElementById("clearPlan")
+.addEventListener(
+"click",
+async ()=>{
+
+
+if(!confirm(
+"Clear this week's meal plan?"
+)){
+
+return;
+
+}
+
+
+
+const {error}=
+
+await supabaseClient
+.from("meal_plans")
+.delete()
+.neq(
+"id",
+0
+);
+
+
+
+if(error){
+
+console.log(
+"Clear meal plan error:",
+error
+);
+
+alert(
+"Clear failed"
+);
+
+return;
+
+}
+
+
+
+alert(
+"Meal plan cleared"
+);
+
+
+location.reload();
+
+
+});
 
 
 
