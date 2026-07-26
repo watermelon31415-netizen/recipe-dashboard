@@ -16,7 +16,10 @@ await supabaseClient
 .from("meal_plans")
 .select("*");
 
-
+console.log(
+"Dashboard meal plans:",
+mealPlan
+);
 
 if(error){
 
