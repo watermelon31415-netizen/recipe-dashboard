@@ -230,6 +230,8 @@ transition:0.3s;
 
     z-index:999;
 
+    overflow:hidden;
+
 }
 
     .sidebar h2{
@@ -240,7 +242,7 @@ transition:0.3s;
 
   .sidebar a{
 
-    flex:1;
+    width:25%;
 
     height:70px;
 
@@ -250,15 +252,11 @@ transition:0.3s;
 
     justify-content:center;
 
-    text-decoration:none;
-
     color:white;
 
+    text-decoration:none;
+
     font-size:26px;
-
-    background:none;
-
-    border-radius:0;
 
 }
     
