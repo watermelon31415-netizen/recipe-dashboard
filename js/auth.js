@@ -19,7 +19,6 @@ const {data,error}=
 await supabaseClient.auth.signInWithPassword({
 
 email,
-
 password
 
 });
@@ -30,11 +29,8 @@ if(error){
 
 console.log(error);
 
-document.getElementById(
-"message"
-).innerHTML =
+document.getElementById("message").innerHTML =
 "Login Failed";
-
 
 return;
 
@@ -42,15 +38,11 @@ return;
 
 
 
-document.getElementById(
-"message"
-).innerHTML =
+document.getElementById("message").innerHTML =
 "Login Success";
 
 
-
-location.href =
-"index.html";
+location.href="index.html";
 
 
 });
