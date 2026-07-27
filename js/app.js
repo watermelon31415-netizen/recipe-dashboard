@@ -213,5 +213,3 @@ filterRecipes
 );
 
 }
-
-}
