@@ -196,78 +196,100 @@ transition:0.3s;
 
 }
 
-@media (max-width: 768px) {
+@media (max-width:768px){
 
-  body {
-    flex-direction: column;
+  .layout{
+    flex-direction:column;
   }
 
   /* Sidebar */
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: static;
-    display: flex;
-    overflow-x: auto;
-    padding: 10px;
-    gap: 10px;
+
+  .sidebar{
+    width:100%;
+    height:auto;
+    position:static;
+    display:flex;
+    overflow-x:auto;
+    gap:12px;
+    padding:15px;
   }
 
-  .sidebar a {
-    white-space: nowrap;
-    padding: 10px 14px;
-    border-radius: 10px;
+  .sidebar h2{
+    display:none;
   }
 
-  /* Main content */
-  .main-content {
-    margin-left: 0;
-    width: 100%;
-    padding: 16px;
+  .sidebar a{
+    white-space:nowrap;
+    padding:10px 14px;
+    background:#333;
+    border-radius:10px;
   }
 
-  /* Dashboard cards */
-  .dashboard-grid {
-    grid-template-columns: 1fr;
+  /* Main */
+
+  .content{
+    padding:20px;
   }
 
-  /* Recipe cards */
-  .recipe-container {
-    grid-template-columns: 1fr;
+  /* Recipe Tools */
+
+  .recipe-tools{
+    flex-direction:column;
+    gap:12px;
   }
 
-  .recipe-card img {
-    width: 100%;
-    height: auto;
+  .recipe-tools input,
+  .recipe-tools select{
+    width:100%;
   }
 
-  /* Meal planner */
-  #planner {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  /* Recipe Grid */
+
+  .recipe-grid{
+    grid-template-columns:1fr;
   }
 
-  .day-card {
-    width: 100%;
+  .recipe-card{
+    width:100%;
   }
 
-  select, input, textarea, button {
-    width: 100%;
-    font-size: 16px;
+  .recipe-card img{
+    width:100%;
+    height:auto;
   }
 
-  button {
-    padding: 12px;
+  /* Detail */
+
+  .detail-image{
+    width:100%;
   }
 
-  h1 {
-    font-size: 28px;
+  /* Planner */
+
+  #planner{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
   }
 
-  h2 {
-    font-size: 22px;
+  .day-card{
+    width:100%;
   }
+
+  /* Inputs */
+
+  input,
+  textarea,
+  select,
+  button{
+    width:100%;
+    font-size:16px;
+  }
+
+  button{
+    padding:12px;
+  }
+
 }
 
 #weeklyMealPlan h3 {
