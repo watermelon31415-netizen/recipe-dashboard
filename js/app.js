@@ -39,7 +39,17 @@ class="recipe-card"
 data-meal="${recipe.meal}"
 >
 
-<img src="${recipe.image_url}">
+${
+recipe.image_url
+?
+`<img src="${recipe.image_url}">`
+:
+`
+<div class="no-image">
+🍽️
+</div>
+`
+}
 
 
 <h2>
@@ -104,24 +114,28 @@ const search =
 document.getElementById("search");
 
 
-if(search){
-
-search.addEventListener(
-"input",
-function(){
+const mealFilter =
+document.getElementById("mealFilter");
 
 
-console.log(
-"Searching:",
-this.value
-);
 
+function filterRecipes(){
 
 
 const keyword =
-this.value
-.toLowerCase()
-.trim();
+search
+?
+search.value.toLowerCase().trim()
+:
+"";
+
+
+const selectedMeal =
+mealFilter
+?
+mealFilter.value
+:
+"";
 
 
 
@@ -136,58 +150,8 @@ cards.forEach(card=>{
 
 
 const text =
-card.innerText
-.toLowerCase();
+card.innerText.toLowerCase();
 
-
-
-if(text.includes(keyword)){
-
-
-card.style.display =
-"block";
-
-
-}
-else{
-
-
-card.style.display =
-"none";
-
-
-}
-
-
-});
-
-
-});
-
-
-
-const mealFilter =
-document.getElementById("mealFilter");
-
-
-if(mealFilter){
-
-mealFilter.addEventListener(
-"change",
-function(){
-
-
-const selected =
-this.value;
-
-
-const cards =
-document.querySelectorAll(
-".recipe-card"
-);
-
-
-cards.forEach(card=>{
 
 
 const meal =
@@ -195,9 +159,20 @@ card.dataset.meal;
 
 
 
+const matchKeyword =
+text.includes(keyword);
+
+
+
+const matchMeal =
+selectedMeal === "" ||
+meal === selectedMeal;
+
+
+
 if(
-selected === "" ||
-meal === selected
+matchKeyword &&
+matchMeal
 ){
 
 card.style.display =
@@ -215,7 +190,27 @@ card.style.display =
 });
 
 
-});
+}
+
+
+
+if(search){
+
+search.addEventListener(
+"input",
+filterRecipes
+);
+
+}
+
+
+
+if(mealFilter){
+
+mealFilter.addEventListener(
+"change",
+filterRecipes
+);
 
 }
 
