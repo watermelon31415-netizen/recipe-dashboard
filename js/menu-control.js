@@ -51,12 +51,9 @@ authBtn.href="#";
 
 authBtn.onclick = async function(){
 
+    await supabaseClient.auth.signOut();
 
-await supabaseClient.auth.signOut();
-
-
-location.href="login.html";
-
+    location.reload();
 
 };
 
