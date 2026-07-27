@@ -150,12 +150,28 @@ ${recipe.id} - ${recipe.name}
 
 
 
-
 async function saveMealPlan(
     day,
     meal,
     recipe_id
 ){
+
+    // 如果选择了 "Choose Recipe"，删除这一条 Meal Plan
+    if(recipe_id === ""){
+
+        const {error} =
+        await supabaseClient
+        .from("meal_plans")
+        .delete()
+        .eq("day", day)
+        .eq("meal", meal);
+
+        if(error){
+            console.log("Delete meal plan error:", error);
+        }
+
+        return;
+    }
 
 
     const {error}=
@@ -176,8 +192,7 @@ async function saveMealPlan(
 
         {
 
-            onConflict:
-            "day,meal"
+            onConflict:"day,meal"
 
         }
 
@@ -194,8 +209,9 @@ async function saveMealPlan(
 
     }
 
-
 }
+
+
 
 
 
