@@ -195,3 +195,77 @@ background:#4caf50;
 transition:0.3s;
 
 }
+
+@media (max-width: 768px) {
+
+  body {
+    flex-direction: column;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    display: flex;
+    overflow-x: auto;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .sidebar a {
+    white-space: nowrap;
+    padding: 10px 14px;
+    border-radius: 10px;
+  }
+
+  /* Main content */
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 16px;
+  }
+
+  /* Dashboard cards */
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Recipe cards */
+  .recipe-container {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-card img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Meal planner */
+  #planner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .day-card {
+    width: 100%;
+  }
+
+  select, input, textarea, button {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 12px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+}
