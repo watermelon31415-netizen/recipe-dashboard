@@ -1,8 +1,16 @@
 async function showRecipes(){
 
+const {
+data:{
+session
+}
+}=await supabaseClient.auth.getSession();
 
+
+const isAdmin = !!session;
+
+  
 await loadRecipes();
-
 
 
 const recipeList =
@@ -21,7 +29,6 @@ return;
 recipeList.innerHTML = "";
 
 
-
 recipes.forEach(recipe => {
 
 
@@ -29,7 +36,7 @@ recipeList.innerHTML += `
 
 <div class="recipe-card">
 
-<img src="${recipe.image}">
+<img src="${recipe.image_url}">
 
 
 <h2>
@@ -53,17 +60,31 @@ ${recipe.name}
 🏷 ${(recipe.tags || []).join(" ")}
 </p>
 
+
+${
+isAdmin
+?
+`
+
 <button
 onclick="location.href='add-recipe.html?id=${recipe.id}'">
 ✏️ Edit
 </button>
+
 
 <button
 onclick="deleteRecipe(${recipe.id})">
 🗑 Delete
 </button>
 
+`
+:
+""
+}
+
+
 </div>
+
 
 `;
 
@@ -76,10 +97,13 @@ onclick="deleteRecipe(${recipe.id})">
 showRecipes();
 
 
+const search =
+document.getElementById("search");
 
-document
-.getElementById("search")
-.addEventListener(
+
+if(search){
+
+search.addEventListener(
 "input",
 function(){
 
@@ -136,3 +160,5 @@ card.style.display =
 
 
 });
+
+}
