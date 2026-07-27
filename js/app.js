@@ -34,7 +34,10 @@ recipes.forEach(recipe => {
 
 recipeList.innerHTML += `
 
-<div class="recipe-card">
+<div 
+class="recipe-card"
+data-meal="${recipe.meal}"
+>
 
 <img src="${recipe.image_url}">
 
@@ -160,5 +163,60 @@ card.style.display =
 
 
 });
+
+
+
+const mealFilter =
+document.getElementById("mealFilter");
+
+
+if(mealFilter){
+
+mealFilter.addEventListener(
+"change",
+function(){
+
+
+const selected =
+this.value;
+
+
+const cards =
+document.querySelectorAll(
+".recipe-card"
+);
+
+
+cards.forEach(card=>{
+
+
+const meal =
+card.dataset.meal;
+
+
+
+if(
+selected === "" ||
+meal === selected
+){
+
+card.style.display =
+"block";
+
+}
+else{
+
+card.style.display =
+"none";
+
+}
+
+
+});
+
+
+});
+
+}
 
 }
