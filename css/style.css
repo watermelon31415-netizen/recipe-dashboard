@@ -237,17 +237,6 @@ transition:0.3s;
   }
 
   .sidebar a{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-
-    font-size:12px;
-    text-decoration:none;
-    color:white;
-}
-
-.sidebar a{
 
     flex:1;
 
@@ -263,14 +252,14 @@ transition:0.3s;
 
     color:white;
 
-    font-size:14px;
+    font-size:26px;
 
     background:none;
 
     border-radius:0;
 
 }
-
+    
   /* Main */
 
   .content{
