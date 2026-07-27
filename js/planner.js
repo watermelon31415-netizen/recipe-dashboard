@@ -12,7 +12,9 @@ const days = [
 const meals = [
     "Breakfast",
     "Lunch",
-    "Dinner"
+    "Dinner",
+    "Drink",
+    "Snack"
 ];
 
 
