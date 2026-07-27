@@ -28,13 +28,13 @@ body{
 
 .sidebar{
 
-    width:260px;
+    width:90px;
 
     background:#222;
 
     color:white;
 
-    padding:30px;
+    padding:20px 10px;
 
 }
 
@@ -50,13 +50,19 @@ body{
 
 .sidebar a{
 
-    display:block;
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
 
     color:white;
 
     text-decoration:none;
 
-    padding:12px 0;
+    padding:15px 0;
+
+    font-size:28px;
 
 }
 
