@@ -240,9 +240,23 @@ transition:0.3s;
 
   }
 
-  .sidebar a{
+    .sidebar nav{
 
-    width:25%;
+    width:100%;
+
+    display:flex;
+
+    flex-direction:row;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+}
+
+.sidebar a{
+
+    width:20%;
 
     height:70px;
 
@@ -257,6 +271,8 @@ transition:0.3s;
     text-decoration:none;
 
     font-size:26px;
+
+    padding:0;
 
 }
     
