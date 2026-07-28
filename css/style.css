@@ -348,6 +348,15 @@ transition:0.3s;
     padding:12px;
   }
 
+    .picker-header{
+    flex-direction:column;
+}
+
+.recipe-search,
+.show-all-btn{
+    width:100%;
+}
+
 }
 
 #weeklyMealPlan h3 {
@@ -377,4 +386,54 @@ border-radius:12px;
 
 font-size:50px;
 
+}
+
+/* ===========================
+   Planner 2.0
+=========================== */
+
+.meal-picker{
+    margin-bottom:16px;
+}
+
+.meal-picker label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+.picker-header{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.recipe-search{
+    flex:1;
+    padding:10px 12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:14px;
+}
+
+.show-all-btn{
+    padding:10px 14px;
+    border:none;
+    border-radius:10px;
+    background:#f0f0f0;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.show-all-btn:hover{
+    background:#e5e5e5;
+}
+
+.recipe-results{
+    display:none;
+    margin-top:8px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:10px;
+    overflow:hidden;
 }
