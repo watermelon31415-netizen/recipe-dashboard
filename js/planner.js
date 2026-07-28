@@ -46,31 +46,44 @@ async function initPlanner(){
 
 
 
-            ${meals.map(meal=>`
+${meals.map(meal=>`
 
+<div class="meal-picker">
 
-            <div>
+    <label>
+    ${meal}
+    </label>
 
+    <!-- 新增这一块 -->
+    <div class="picker-header">
 
-                <label>
-                ${meal}
-                </label>
+        <input
+            type="text"
+            class="recipe-search"
+            placeholder="🔍 Search recipe..."
+        >
 
+        <button
+            type="button"
+            class="show-all-btn"
+        >
+            📋 All
+        </button>
 
-                <select
-                class="meal-select"
-                data-day="${day}"
-                data-meal="${meal}"
-                >
+    </div>
 
+    <!-- 原来的 select 保留 -->
+    <select
+        class="meal-select"
+        data-day="${day}"
+        data-meal="${meal}"
+    >
 
-                  <option value="">
-Choose Recipe
-</option>
+        <option value="">
+            Choose Recipe
+        </option>
 
-
-
-                  ${recipes.map(recipe=>`
+        ${recipes.map(recipe=>`
 
 <option value="${recipe.id}">
 ${recipe.id} - ${recipe.name}
@@ -78,15 +91,14 @@ ${recipe.id} - ${recipe.name}
 
 `).join("")}
 
+    </select>
 
+    <!-- 以后搜索结果会显示在这里 -->
+    <div class="recipe-results"></div>
 
-                </select>
+</div>
 
-
-            </div>
-
-
-            `).join("")}
+`).join("")}
 
 
 
