@@ -217,17 +217,14 @@ allButtons.forEach(button => {
         const results =
         mealPicker.querySelector(".recipe-results");
 
-        results.innerHTML =
-        recipes.map(recipe => `
-            <div
-                class="recipe-item"
-                data-id="${recipe.id}"
-            >
-                ${recipe.name}
-            </div>
-        `).join("");
+        const input =
+mealPicker.querySelector(".recipe-search");
 
-        results.style.display = "block";
+showRecipeResults(
+    results,
+    input,
+    recipes
+);
 
     });
 
