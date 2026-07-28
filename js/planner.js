@@ -54,7 +54,7 @@ function showRecipeResults(results, input, recipeList){
                 new Event("change")
             );
 
-            input.value = item.textContent;
+            input.value = item.textContent.trim();
 
             results.innerHTML = "";
             results.style.display = "none";
@@ -182,8 +182,11 @@ searchInputs.forEach(input => {
 
         if(keyword === ""){
 
+            input.value = "";
+
             results.style.display = "none";
             results.innerHTML = "";
+            
             return;
 
         }
