@@ -148,13 +148,43 @@ searchInputs.forEach(input => {
         );
 
         results.innerHTML =
-        filtered.map(recipe => `
-            <div class="recipe-item">
-                ${recipe.name}
-            </div>
-        `).join("");
+filtered.map(recipe => `
+    <div
+        class="recipe-item"
+        data-id="${recipe.id}"
+    >
+        ${recipe.name}
+    </div>
+`).join("");
 
         results.style.display = "block";
+
+        results.querySelectorAll(".recipe-item")
+.forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        const recipeId = item.dataset.id;
+
+        const select =
+        input
+        .closest(".meal-picker")
+        .querySelector(".meal-select");
+
+        select.value = recipeId;
+
+        select.dispatchEvent(
+            new Event("change")
+        );
+
+        input.value = item.textContent;
+
+        results.innerHTML = "";
+        results.style.display = "none";
+
+    });
+
+});
 
     });
 
