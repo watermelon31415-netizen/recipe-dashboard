@@ -115,6 +115,11 @@ document.querySelectorAll(
     ".recipe-search"
 );
 
+    const allButtons =
+document.querySelectorAll(
+    ".show-all-btn"
+);
+
     const selects =
     document.querySelectorAll(
         ".meal-select"
@@ -190,6 +195,32 @@ filtered.map(recipe => `
 
 });
 
+allButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const mealPicker =
+        button.closest(".meal-picker");
+
+        const results =
+        mealPicker.querySelector(".recipe-results");
+
+        results.innerHTML =
+        recipes.map(recipe => `
+            <div
+                class="recipe-item"
+                data-id="${recipe.id}"
+            >
+                ${recipe.name}
+            </div>
+        `).join("");
+
+        results.style.display = "block";
+
+    });
+
+});
+    
     selects.forEach(select=>{
 
 
