@@ -182,6 +182,8 @@ searchInputs.forEach(input => {
 
         if(keyword === ""){
 
+    input.value = "";
+
     const select =
     input
     .closest(".meal-picker")
