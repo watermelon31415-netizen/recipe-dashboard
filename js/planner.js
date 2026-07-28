@@ -422,19 +422,37 @@ if(exists){
     }
 
 }
+
 else{
 
     select.value = "";
 
+    const mealPicker =
+    select.closest(".meal-picker");
+
+    const searchInput =
+    mealPicker.querySelector(".recipe-search");
+
+    searchInput.value = "";
+
 }
 
 
 }
 else{
 
-select.value = "";
+    select.value = "";
+
+    const mealPicker =
+    select.closest(".meal-picker");
+
+    const searchInput =
+    mealPicker.querySelector(".recipe-search");
+
+    searchInput.value = "";
 
 }
+           
 
 
     });
