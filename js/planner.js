@@ -110,14 +110,55 @@ ${recipe.id} - ${recipe.name}
 
     });
 
-
+const searchInputs =
+document.querySelectorAll(
+    ".recipe-search"
+);
 
     const selects =
     document.querySelectorAll(
         ".meal-select"
     );
 
+searchInputs.forEach(input => {
 
+    input.addEventListener("input", () => {
+
+        const keyword =
+        input.value.toLowerCase().trim();
+
+        const results =
+        input
+        .closest(".meal-picker")
+        .querySelector(".recipe-results");
+
+        if(keyword === ""){
+
+            results.style.display = "none";
+            results.innerHTML = "";
+            return;
+
+        }
+
+        const filtered =
+        recipes.filter(recipe =>
+            recipe.name
+            .toLowerCase()
+            .includes(keyword)
+        );
+
+        results.innerHTML =
+        filtered.map(recipe => `
+            <div class="recipe-item">
+                ${recipe.name}
+            </div>
+        `).join("");
+
+        results.style.display = "block";
+
+    });
+
+});
 
     selects.forEach(select=>{
 
