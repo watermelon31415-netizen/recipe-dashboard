@@ -182,14 +182,28 @@ searchInputs.forEach(input => {
 
         if(keyword === ""){
 
-            input.value = "";
+    const select =
+    input
+    .closest(".meal-picker")
+    .querySelector(".meal-select");
 
-            results.style.display = "none";
-            results.innerHTML = "";
-            
-            return;
 
-        }
+    select.value = "";
+
+
+    select.dispatchEvent(
+        new Event("change")
+    );
+
+
+    results.style.display = "none";
+
+    results.innerHTML = "";
+
+
+    return;
+
+}
 
         const filtered =
         recipes.filter(recipe =>
