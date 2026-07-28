@@ -362,13 +362,29 @@ option.value == saved.recipe_id
 
 if(exists){
 
-select.value =
-String(saved.recipe_id);
+    select.value =
+    String(saved.recipe_id);
+
+    // 新增：显示菜谱名称到搜索框
+    const mealPicker =
+    select.closest(".meal-picker");
+
+    const searchInput =
+    mealPicker.querySelector(".recipe-search");
+
+    const recipe =
+    recipes.find(r =>
+        r.id == saved.recipe_id
+    );
+
+    if(recipe){
+        searchInput.value = recipe.name;
+    }
 
 }
 else{
 
-select.value = "";
+    select.value = "";
 
 }
 
